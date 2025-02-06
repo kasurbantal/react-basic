@@ -1,4 +1,5 @@
-type ProfileCardProps = {
+export type ProfileCardProps = {
+  id: number;
   name?: string;
   year: number;
   job?: string;
