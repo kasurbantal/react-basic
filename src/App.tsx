@@ -9,7 +9,7 @@ import NotFoundPage from "./pages/NotFound";
 import ProductDetailPage from "./pages/ProductDetailPage";
 import ProductListPage from "./pages/ProductListPage";
 import LetterTemplateApp from "./components/LetterTemplateApp";
-import { ProfileCardProps } from "./components/ProfileCard";
+import { Teacher, ProfileCardProps } from "./components/ProfileCard";
 
 // type Teacher = {
 //   id: number;
@@ -18,7 +18,7 @@ import { ProfileCardProps } from "./components/ProfileCard";
 //   year: number;
 // };
 
-const teachers: ProfileCardProps[] = [
+const teachers: Teacher[] = [
   { id: 1, name: "Reza", year: 1998, job: "Software Engineer" },
   { id: 2, name: "Tian", year: 1997, job: "Software Engineer" },
   { id: 3, name: "Indra", year: 1998, job: "Teach Lead" },
