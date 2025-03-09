@@ -10,6 +10,7 @@ import ProductDetailPage from "./pages/ProductDetailPage";
 import ProductListPage from "./pages/ProductListPage";
 import LetterTemplateApp from "./components/LetterTemplateApp";
 import { Teacher, ProfileCardProps } from "./components/ProfileCard";
+import FormPage from "./pages/FormPage";
 
 // type Teacher = {
 //   id: number;
@@ -31,7 +32,7 @@ const teachers: Teacher[] = [
 function App() {
   return (
     <>
-      <Header />
+      {/* <Header />
       <Welcome />
       <h1>Hello World!</h1>
       <div style={{ gap: "8px", display: "flex", flexDirection: "row" }}>
@@ -47,15 +48,16 @@ function App() {
         })}
       </div>
       <Counter />
-      <LetterTemplateApp />
+      <LetterTemplateApp /> */}
 
-      {/* <Routes>
+      <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/terms" element={<TermsPage />} />
         <Route path="/product-list" element={<ProductListPage />} />
         <Route path="/product/:slug" element={<ProductDetailPage />} />
+        <Route path="/form" element={<FormPage />} />
         <Route path="*" element={<NotFoundPage />} />
-      </Routes> */}
+      </Routes>
     </>
   );
 }
