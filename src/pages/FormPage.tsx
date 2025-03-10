@@ -2,17 +2,26 @@ import { useRef, useState } from "react";
 
 const FormPage = () => {
   //Uncontrolled component
-  const inputNameRef = useRef<HTMLInputElement>(null);
-  const inputEmailRef = useRef<HTMLInputElement>(null);
+  // const inputNameRef = useRef<HTMLInputElement>(null);
+  // const inputEmailRef = useRef<HTMLInputElement>(null);
 
   //Controlled component
   const [fullNameInput, setfullNameInput] = useState("");
   const [passwordInput, setpasswordInput] = useState("");
 
   const handleSubmit = () => {
-    const fullNameForValue = inputNameRef.current?.value;
-    const emailForValue = inputEmailRef.current?.value;
-    alert("Form Submited " + fullNameForValue + " " + emailForValue);
+    // const fullNameForValue = inputNameRef.current?.value;
+    // const emailForValue = inputEmailRef.current?.value;
+    // alert("Form Submited " + fullNameForValue + " " + emailForValue);
+
+    const fullNameValidation = fullNameInput.length < 3;
+    const passwordValidation = passwordInput.length < 8;
+    if (fullNameValidation || passwordValidation) {
+      alert(
+        "Username must be at least 3 characters & password must be at least 8 characters"
+      );
+      return;
+    }
   };
 
   return (
