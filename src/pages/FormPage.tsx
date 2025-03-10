@@ -9,6 +9,9 @@ const FormPage = () => {
   const [fullNameInput, setfullNameInput] = useState("");
   const [passwordInput, setpasswordInput] = useState("");
 
+  const [usernameErrorMessage, setUsernameErrorMessage] = useState("");
+  const [passwordErrorMessage, setPasswordErrorMessage] = useState("");
+
   const handleSubmit = () => {
     // const fullNameForValue = inputNameRef.current?.value;
     // const emailForValue = inputEmailRef.current?.value;
@@ -16,10 +19,14 @@ const FormPage = () => {
 
     const fullNameValidation = fullNameInput.length < 3;
     const passwordValidation = passwordInput.length < 8;
-    if (fullNameValidation || passwordValidation) {
-      alert(
-        "Username must be at least 3 characters & password must be at least 8 characters"
-      );
+
+    if (fullNameValidation) {
+      setUsernameErrorMessage("Username must be at least 3 characters");
+      return;
+    }
+
+    if (passwordValidation) {
+      setPasswordErrorMessage("Password must be at least 8 characters");
       return;
     }
   };
@@ -40,6 +47,8 @@ const FormPage = () => {
           type="text"
           value={fullNameInput}
         />
+        {/* memberikan notifikasi atas kesalahan pengisian */}
+        <span>{usernameErrorMessage}</span>
         <label htmlFor="password">Password</label>
         {/* <input ref={inputEmailRef} id="email" type="email" /> */}
         <input
@@ -48,6 +57,9 @@ const FormPage = () => {
           type="password"
           value={passwordInput}
         />
+
+        {/* memberikan notifikasi atas kesalahan pengisian */}
+        <span>{passwordErrorMessage}</span>
         <button onClick={handleSubmit}>Submit</button>
       </div>
     </>
