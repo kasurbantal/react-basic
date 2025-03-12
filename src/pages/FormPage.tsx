@@ -42,24 +42,42 @@ const FormPage = () => {
         <label htmlFor="full-name">Full Name</label>
         {/* <input ref={inputNameRef} id="full-name" type="text" /> */}
         <input
-          onChange={(e) => setfullNameInput(e.target.value)}
+          onChange={(e) => {
+            setfullNameInput(e.target.value);
+            const fullNameValidation = e.target.value.length < 3;
+            if (fullNameValidation) {
+              setUsernameErrorMessage("Username must be at least 3 chars");
+              return;
+            } else {
+              setUsernameErrorMessage("");
+            }
+          }}
           id="full-name"
           type="text"
           value={fullNameInput}
         />
         {/* memberikan notifikasi atas kesalahan pengisian */}
-        <span>{usernameErrorMessage}</span>
+        <span style={{ color: "red" }}>{usernameErrorMessage}</span>
         <label htmlFor="password">Password</label>
         {/* <input ref={inputEmailRef} id="email" type="email" /> */}
         <input
-          onChange={(e) => setpasswordInput(e.target.value)}
+          onChange={(e) => {
+            setpasswordInput(e.target.value);
+            const passwordValidation = e.target.value.length < 8;
+            if (passwordValidation) {
+              setPasswordErrorMessage("Password must be at least 8 chars");
+              return;
+            } else {
+              setPasswordErrorMessage("");
+            }
+          }}
           id="password"
           type="password"
           value={passwordInput}
         />
 
         {/* memberikan notifikasi atas kesalahan pengisian */}
-        <span>{passwordErrorMessage}</span>
+        <span style={{ color: "red" }}>{passwordErrorMessage}</span>
         <button onClick={handleSubmit}>Submit</button>
       </div>
     </>
