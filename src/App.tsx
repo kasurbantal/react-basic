@@ -11,6 +11,7 @@ import ProductListPage from "./pages/ProductListPage";
 import LetterTemplateApp from "./components/LetterTemplateApp";
 import { Teacher, ProfileCardProps } from "./components/ProfileCard";
 import FormPage from "./pages/FormPage";
+import RHFPage from "./pages/RHFPage";
 
 // type Teacher = {
 //   id: number;
@@ -56,6 +57,7 @@ function App() {
         <Route path="/product-list" element={<ProductListPage />} />
         <Route path="/product/:slug" element={<ProductDetailPage />} />
         <Route path="/form" element={<FormPage />} />
+        <Route path="/rhf" element={<RHFPage />} />
         <Route path="*" element={<NotFoundPage />} />
       </Routes>
     </>
