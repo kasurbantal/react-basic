@@ -1,6 +1,7 @@
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useState } from "react";
 
 // type RegisterFormSchema = {
 //   username: string;
@@ -21,6 +22,8 @@ const RHFPage = () => {
     resolver: zodResolver(registerFormSchema),
   });
 
+  const [showPassword, setShowPassword] = useState(false);
+
   const handleRegisterUser = (values: RegisterFormSchema) => {
     alert("Form Submitted!");
   };
@@ -40,10 +43,19 @@ const RHFPage = () => {
         </span>
 
         <label>Password:</label>
-        <input type="text" {...form.register("password")} />
+        <input
+          type={showPassword ? "text" : "password"}
+          {...form.register("password")}
+        />
         <span style={{ color: "red" }}>
           {form.formState.errors.password?.message}
         </span>
+        <label>
+          <input
+            type="checkbox"
+            onChange={(e) => setShowPassword(e.target.checked)}
+          />
+        </label>
 
         <label>Age:</label>
         <input type="text" {...form.register("age")} />
