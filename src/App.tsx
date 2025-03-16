@@ -12,6 +12,7 @@ import LetterTemplateApp from "./components/LetterTemplateApp";
 import { Teacher, ProfileCardProps } from "./components/ProfileCard";
 import FormPage from "./pages/FormPage";
 import RHFPage from "./pages/RHFPage";
+import RegisterPage from "./pages/RegisterPage";
 
 // type Teacher = {
 //   id: number;
@@ -58,6 +59,7 @@ function App() {
         <Route path="/product/:slug" element={<ProductDetailPage />} />
         <Route path="/form" element={<FormPage />} />
         <Route path="/rhf" element={<RHFPage />} />
+        <Route path="/reg" element={<RegisterPage />} />
         <Route path="*" element={<NotFoundPage />} />
       </Routes>
     </>
