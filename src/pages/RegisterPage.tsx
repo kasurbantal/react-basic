@@ -3,11 +3,22 @@ import { z } from "zod";
 import { useForm } from "react-hook-form";
 import { useState } from "react";
 
-const registerSchema = z.object({
-  username: z.string().min(3),
-  password: z.string().min(8),
-  age: z.coerce.number().min(18),
-});
+const registerSchema = z
+  .object({
+    username: z.string().min(3),
+    password: z.string().min(8),
+    age: z.coerce.number().min(18),
+    repeatPassword: z.string(),
+  })
+  .superRefine((arg, ctx) => {
+    if (arg.password !== arg.repeatPassword) {
+      ctx.addIssue({
+        code: "custom",
+        path: ["repeatPassword"],
+        message: "Password tidak sama!",
+      });
+    }
+  });
 
 type RegisterSchema = z.infer<typeof registerSchema>;
 
@@ -44,6 +55,14 @@ const RegisterPage = () => {
           {...form.register("password")}
         />
         <span>{form.formState.errors.password?.message}</span>
+
+        <label>Repeat Password</label>
+        <input
+          type={showPassword ? "text" : "password"}
+          {...form.register("repeatPassword")}
+        />
+        <span>{form.formState.errors.repeatPassword?.message}</span>
+
         <label>
           {" "}
           <input
