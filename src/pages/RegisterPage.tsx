@@ -9,6 +9,8 @@ const registerSchema = z
     password: z.string().min(8),
     age: z.coerce.number().min(18),
     repeatPassword: z.string(),
+    gender: z.enum(["male", "female"]),
+    isPregnant: z.boolean().optional(),
   })
   .superRefine((arg, ctx) => {
     if (arg.password !== arg.repeatPassword) {
@@ -75,6 +77,19 @@ const RegisterPage = () => {
         <input type="text" {...form.register("age")} />
         <span>{form.formState.errors.age?.message}</span>
 
+        <label>Gender</label>
+        <select {...form.register("gender")}>
+          <option value="male">Male</option>
+          <option value="female">Female</option>
+        </select>
+
+        {form.watch("gender") === "female" && (
+          <label>
+            Pregnant ?{" "}
+            <input type="checkbox" {...form.register("isPregnant")} />{" "}
+          </label>
+        )}
+
         <button>Submit</button>
       </form>
 
@@ -90,6 +105,10 @@ const RegisterPage = () => {
           <h3>Submitted Data</h3>
           <p>Username: {submittedData?.username}</p>
           <p>Age: {submittedData?.age}</p>
+          <p>Gender: {submittedData?.gender}</p>
+          {submittedData.gender === "female" && (
+            <p>Pregnant Status: {submittedData?.isPregnant ? "Yes" : "No"}</p>
+          )}
         </div>
       )}
     </>
