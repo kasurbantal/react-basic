@@ -1,5 +1,10 @@
 {
-  "employees": [],
+  "employees": [
+    {
+      "id": 1,
+      "name": "Luwak"
+    }
+  ],
   "products": [],
   "todos": []
 }
