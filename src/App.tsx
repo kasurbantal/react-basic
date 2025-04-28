@@ -13,6 +13,7 @@ import { Teacher, ProfileCardProps } from "./components/ProfileCard";
 import FormPage from "./pages/FormPage";
 import RHFPage from "./pages/RHFPage";
 import RegisterPage from "./pages/RegisterPage";
+import EmployeesPage from "./pages/EmployeesPage";
 
 // type Teacher = {
 //   id: number;
@@ -60,6 +61,7 @@ function App() {
         <Route path="/form" element={<FormPage />} />
         <Route path="/rhf" element={<RHFPage />} />
         <Route path="/reg" element={<RegisterPage />} />
+        <Route path="/employee" element={<EmployeesPage />} />
         <Route path="*" element={<NotFoundPage />} />
       </Routes>
     </>
