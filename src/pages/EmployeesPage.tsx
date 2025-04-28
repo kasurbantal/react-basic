@@ -1,4 +1,9 @@
 const EmployeesPage = () => {
+  const fetchEmployees = async () => {
+    const request = await fetch("http://localhost:2000/employees");
+    console.log(request);
+  };
+
   return (
     <>
       <h1>Employees Page</h1>
@@ -16,6 +21,7 @@ const EmployeesPage = () => {
           </tr>
         </tbody>
       </table>
+      <button onClick={fetchEmployees}>Fetch</button>
     </>
   );
 };
