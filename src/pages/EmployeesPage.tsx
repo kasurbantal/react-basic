@@ -1,7 +1,12 @@
 const EmployeesPage = () => {
   const fetchEmployees = async () => {
-    const request = await fetch("http://localhost:2000/employees");
-    console.log(request);
+    const req = await fetch("http://localhost:2000/employees", {
+      method: "GET",
+    });
+
+    const res = await req.json();
+
+    console.log(res);
   };
 
   return (
