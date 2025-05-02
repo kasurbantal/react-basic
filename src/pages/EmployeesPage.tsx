@@ -7,9 +7,12 @@ type Employee = {
 
 const EmployeesPage = () => {
   const [employees, setEmployees] = useState<Employee[]>([]);
+  const [employeesIsLoading, setEmployeesIsLoading] = useState(false);
+  const [employeesError, setEmployeesError] = useState("");
 
   const fetchEmployees = async () => {
     try {
+      setEmployeesIsLoading(true);
       const res = await fetch("http://localhost:2000/employees", {
         method: "GET",
       });
@@ -18,7 +21,10 @@ const EmployeesPage = () => {
 
       setEmployees(resJson);
     } catch (error) {
+      setEmployeesError((error as TypeError).message);
       alert("Failed to getting employees's data");
+    } finally {
+      setEmployeesIsLoading(false);
     }
   };
 
@@ -43,7 +49,11 @@ const EmployeesPage = () => {
           })}
         </tbody>
       </table>
-      <button onClick={fetchEmployees}>Fetch</button>
+      <button disabled={employeesIsLoading} onClick={fetchEmployees}>
+        Fetch
+      </button>
+      {employeesIsLoading && <p>Loading...</p>}
+      {employeesError && <p style={{ color: "red" }}>{employeesError}</p>}
     </>
   );
 };
