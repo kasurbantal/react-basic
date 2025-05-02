@@ -1,12 +1,21 @@
+import { useState } from "react";
+
+type Employee = {
+  id: number;
+  name: string;
+};
+
 const EmployeesPage = () => {
+  const [employees, setEmployees] = useState<Employee[]>([]);
+
   const fetchEmployees = async () => {
-    const req = await fetch("http://localhost:2000/employees", {
+    const res = await fetch("http://localhost:2000/employees", {
       method: "GET",
     });
 
-    const res = await req.json();
+    const resJson = (await res.json()) as Employee[];
 
-    console.log(res);
+    setEmployees(resJson);
   };
 
   return (
@@ -20,10 +29,14 @@ const EmployeesPage = () => {
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td>1</td>
-            <td>Luwak</td>
-          </tr>
+          {employees.map((employee) => {
+            return (
+              <tr>
+                <td>{employee.id}</td>
+                <td>{employee.name}</td>
+              </tr>
+            );
+          })}
         </tbody>
       </table>
       <button onClick={fetchEmployees}>Fetch</button>
