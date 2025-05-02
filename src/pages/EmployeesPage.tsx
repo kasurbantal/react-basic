@@ -9,13 +9,17 @@ const EmployeesPage = () => {
   const [employees, setEmployees] = useState<Employee[]>([]);
 
   const fetchEmployees = async () => {
-    const res = await fetch("http://localhost:2000/employees", {
-      method: "GET",
-    });
+    try {
+      const res = await fetch("http://localhost:2000/employees", {
+        method: "GET",
+      });
 
-    const resJson = (await res.json()) as Employee[];
+      const resJson = (await res.json()) as Employee[];
 
-    setEmployees(resJson);
+      setEmployees(resJson);
+    } catch (error) {
+      alert("Failed to getting employees's data");
+    }
   };
 
   return (
