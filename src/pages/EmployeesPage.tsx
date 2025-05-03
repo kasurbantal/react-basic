@@ -1,32 +1,8 @@
-import { useState } from "react";
-
-type Employee = {
-  id: number;
-  name: string;
-};
+import { useFetchEmployees } from "../api/useFetchEmployees";
 
 const EmployeesPage = () => {
-  const [employees, setEmployees] = useState<Employee[]>([]);
-  const [employeesIsLoading, setEmployeesIsLoading] = useState(false);
-  const [employeesError, setEmployeesError] = useState("");
-
-  const fetchEmployees = async () => {
-    try {
-      setEmployeesIsLoading(true);
-      const res = await fetch("http://localhost:2000/employees", {
-        method: "GET",
-      });
-
-      const resJson = (await res.json()) as Employee[];
-
-      setEmployees(resJson);
-    } catch (error) {
-      setEmployeesError((error as TypeError).message);
-      alert("Failed to getting employees's data");
-    } finally {
-      setEmployeesIsLoading(false);
-    }
-  };
+  const { employees, employeesError, employeesIsLoading, fetchEmployees } =
+    useFetchEmployees();
 
   return (
     <>
