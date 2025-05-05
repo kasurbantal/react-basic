@@ -21,6 +21,27 @@
       "name": "Fufufu"
     }
   ],
-  "products": [],
+  "collections": [
+    {
+      "id": 1,
+      "product": "Pajero Sport"
+    },
+    {
+      "id": 2,
+      "product": "Land Cruiser"
+    },
+    {
+      "id": 3,
+      "product": "Esemka"
+    },
+    {
+      "id": 4,
+      "product": "Xpander"
+    },
+    {
+      "id": 5,
+      "product": "Rush"
+    }
+  ],
   "todos": []
 }
