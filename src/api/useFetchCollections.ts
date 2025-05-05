@@ -1,4 +1,5 @@
 import { useState } from "react";
+import axios from "axios";
 
 type CollectionResponse = {
   id: number;
@@ -13,13 +14,12 @@ export const useFetchCollections = () => {
   const fetchCollections = async () => {
     try {
       setCollectionsIsLoading(true);
-      const res = await fetch("http://localhost:2000/collections", {
-        method: "GET",
-      });
 
-      const resJson = (await res.json()) as CollectionResponse[];
+      const res = await axios.get<CollectionResponse[]>(
+        "http://localhost:2000/collections"
+      );
 
-      setCollections(resJson);
+      setCollections(res.data);
     } catch (error) {
       setCollectionsError((error as TypeError).message);
     } finally {

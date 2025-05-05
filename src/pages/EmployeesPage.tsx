@@ -17,7 +17,7 @@ const EmployeesPage = () => {
         <tbody>
           {employees.map((employee) => {
             return (
-              <tr>
+              <tr key={employee.id}>
                 <td>{employee.id}</td>
                 <td>{employee.name}</td>
               </tr>

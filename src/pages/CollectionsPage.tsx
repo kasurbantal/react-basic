@@ -21,7 +21,7 @@ const CollectionsPage = () => {
         <tbody>
           {collections.map((collection) => {
             return (
-              <tr>
+              <tr key={collection.id}>
                 <td>{collection.id}</td>
                 <td>{collection.product}</td>
               </tr>
