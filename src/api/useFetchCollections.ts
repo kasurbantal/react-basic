@@ -25,8 +25,23 @@ export const useFetchCollections = () => {
     }
   };
 
+  const addCollection = async (product: string) => {
+    try {
+      setCollectionsIsLoading(true);
+      const res = await AxiosInstance.post<CollectionResponse>("/collections", {
+        product,
+      });
+      setCollections((prev) => [...prev, res.data]);
+    } catch (error) {
+      setCollectionsError((error as TypeError).message);
+    } finally {
+      setCollectionsIsLoading(false);
+    }
+  };
+
   return {
     fetchCollections,
+    addCollection,
     collectionsIsLoading,
     collectionsError,
     collections,

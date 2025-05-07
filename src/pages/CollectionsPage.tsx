@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { useFetchCollections } from "../api/useFetchCollections";
 
 const CollectionsPage = () => {
@@ -6,7 +7,15 @@ const CollectionsPage = () => {
     collectionsError,
     collectionsIsLoading,
     fetchCollections,
+    addCollection,
   } = useFetchCollections();
+
+  const [newProduct, setNewProduct] = useState("");
+  const handleAddCollection = () => {
+    if (newProduct.trim() === "") return;
+    addCollection(newProduct);
+    setNewProduct(""); // reset input setelah ditambahkan
+  };
 
   return (
     <>
@@ -31,6 +40,17 @@ const CollectionsPage = () => {
       </table>
       <button disabled={collectionsIsLoading} onClick={fetchCollections}>
         Fetch
+      </button>
+      <br />
+
+      <input
+        type="text"
+        placeholder="Add new collection"
+        value={newProduct}
+        onChange={(e) => setNewProduct(e.target.value)}
+      />
+      <button onClick={handleAddCollection} disabled={collectionsIsLoading}>
+        Add
       </button>
       {collectionsIsLoading && <p>Loading...</p>}
       {collectionsError && <p style={{ color: "red" }}>{collectionsError}</p>}
