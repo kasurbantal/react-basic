@@ -39,11 +39,24 @@ export const useFetchCollections = () => {
     }
   };
 
+  const deleteCollection = async (id: number) => {
+    try {
+      setCollectionsIsLoading(true);
+      await AxiosInstance.delete(`/collections/${id}`);
+      setCollections((prev) => prev.filter((item) => item.id !== id));
+    } catch (error) {
+      setCollectionsError((error as TypeError).message);
+    } finally {
+      setCollectionsIsLoading(false);
+    }
+  };
+
   return {
     fetchCollections,
     addCollection,
     collectionsIsLoading,
     collectionsError,
     collections,
+    deleteCollection,
   };
 };

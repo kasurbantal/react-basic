@@ -8,6 +8,7 @@ const CollectionsPage = () => {
     collectionsIsLoading,
     fetchCollections,
     addCollection,
+    deleteCollection,
   } = useFetchCollections();
 
   const [newProduct, setNewProduct] = useState("");
@@ -25,6 +26,7 @@ const CollectionsPage = () => {
           <tr>
             <td>ID</td>
             <td>Product</td>
+            <td>Action</td>
           </tr>
         </thead>
         <tbody>
@@ -33,6 +35,20 @@ const CollectionsPage = () => {
               <tr key={collection.id}>
                 <td>{collection.id}</td>
                 <td>{collection.product}</td>
+                <td>
+                  <button
+                    onClick={() => {
+                      if (
+                        window.confirm("Yakin ingin menghapus koleksi ini?")
+                      ) {
+                        deleteCollection(collection.id);
+                      }
+                    }}
+                  >
+                    Delete
+                  </button>
+                  <button>Edit</button>
+                </td>
               </tr>
             );
           })}
