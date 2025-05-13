@@ -9,6 +9,9 @@ const CollectionsPage = () => {
     fetchCollections,
     addCollection,
     deleteCollection,
+    editCollection,
+    editProduct,
+    setEditProduct,
   } = useFetchCollections();
 
   const [newProduct, setNewProduct] = useState("");
@@ -16,6 +19,13 @@ const CollectionsPage = () => {
     if (newProduct.trim() === "") return;
     addCollection(newProduct);
     setNewProduct(""); // reset input setelah ditambahkan
+  };
+
+  const handleEditCollection = () => {
+    if (editProduct && newProduct.trim() !== "") {
+      editCollection(editProduct.id, newProduct);
+      setNewProduct(""); // reset input setelah diupdate
+    }
   };
 
   return (
@@ -47,7 +57,9 @@ const CollectionsPage = () => {
                   >
                     Delete
                   </button>
-                  <button>Edit</button>
+                  <button onClick={() => setEditProduct(collection)}>
+                    Edit
+                  </button>
                 </td>
               </tr>
             );
@@ -65,8 +77,11 @@ const CollectionsPage = () => {
         value={newProduct}
         onChange={(e) => setNewProduct(e.target.value)}
       />
-      <button onClick={handleAddCollection} disabled={collectionsIsLoading}>
-        Add
+      <button
+        onClick={editProduct ? handleEditCollection : handleAddCollection}
+        disabled={collectionsIsLoading}
+      >
+        {editProduct ? "Update" : "Add"}
       </button>
       {collectionsIsLoading && <p>Loading...</p>}
       {collectionsError && <p style={{ color: "red" }}>{collectionsError}</p>}

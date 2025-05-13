@@ -10,6 +10,9 @@ export const useFetchCollections = () => {
   const [collections, setCollections] = useState<CollectionResponse[]>([]);
   const [collectionsIsLoading, setCollectionsIsLoading] = useState(false);
   const [collectionsError, setCollectionsError] = useState("");
+  const [editProduct, setEditProduct] = useState<CollectionResponse | null>(
+    null
+  );
 
   const fetchCollections = async () => {
     try {
@@ -51,6 +54,28 @@ export const useFetchCollections = () => {
     }
   };
 
+  const editCollection = async (id: number, newProduct: string) => {
+    try {
+      setCollectionsIsLoading(true);
+      const res = await AxiosInstance.put<CollectionResponse>(
+        `/collections/${id}`,
+        {
+          product: newProduct,
+        }
+      );
+      setCollections((prev) =>
+        prev.map((item) =>
+          item.id === id ? { ...item, product: res.data.product } : item
+        )
+      );
+      setEditProduct(null); // Reset editing state after updating
+    } catch (error) {
+      setCollectionsError((error as TypeError).message);
+    } finally {
+      setCollectionsIsLoading(false);
+    }
+  };
+
   return {
     fetchCollections,
     addCollection,
@@ -58,5 +83,8 @@ export const useFetchCollections = () => {
     collectionsError,
     collections,
     deleteCollection,
+    editCollection,
+    editProduct,
+    setEditProduct,
   };
 };
