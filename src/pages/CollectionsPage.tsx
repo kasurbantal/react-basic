@@ -14,18 +14,18 @@ const CollectionsPage = () => {
     setEditProduct,
   } = useFetchCollections();
 
-  const [newProduct, setNewProduct] = useState("");
-  const handleAddCollection = () => {
-    if (newProduct.trim() === "") return;
-    addCollection(newProduct);
-    setNewProduct(""); // reset input setelah ditambahkan
-  };
+  const [inputProduct, setInputProduct] = useState("");
 
-  const handleEditCollection = () => {
-    if (editProduct && newProduct.trim() !== "") {
-      editCollection(editProduct.id, newProduct);
-      setNewProduct(""); // reset input setelah diupdate
+  const handleAddOrEditCollection = () => {
+    if (inputProduct.trim() === "") return;
+
+    if (editProduct) {
+      editCollection(editProduct.id, inputProduct);
+      setEditProduct(null);
+    } else {
+      addCollection(inputProduct);
     }
+    setInputProduct("");
   };
 
   return (
@@ -57,7 +57,12 @@ const CollectionsPage = () => {
                   >
                     Delete
                   </button>
-                  <button onClick={() => setEditProduct(collection)}>
+                  <button
+                    onClick={() => {
+                      setEditProduct(collection);
+                      setInputProduct(collection.product);
+                    }}
+                  >
                     Edit
                   </button>
                 </td>
@@ -73,16 +78,29 @@ const CollectionsPage = () => {
 
       <input
         type="text"
-        placeholder="Add new collection"
-        value={newProduct}
-        onChange={(e) => setNewProduct(e.target.value)}
+        placeholder="Collection name"
+        value={inputProduct}
+        onChange={(e) => setInputProduct(e.target.value)}
       />
+
       <button
-        onClick={editProduct ? handleEditCollection : handleAddCollection}
+        onClick={handleAddOrEditCollection}
         disabled={collectionsIsLoading}
       >
         {editProduct ? "Update" : "Add"}
       </button>
+
+      {/* Tombol cancel edit ini akan tampil ketika tombol add dalam kondisi untuk edit */}
+      {editProduct && (
+        <button
+          onClick={() => {
+            setEditProduct(null);
+            setInputProduct(""); // reset input jika batal edit
+          }}
+        >
+          Cancel Edit
+        </button>
+      )}
       {collectionsIsLoading && <p>Loading...</p>}
       {collectionsError && <p style={{ color: "red" }}>{collectionsError}</p>}
     </>
