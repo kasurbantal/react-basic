@@ -15,6 +15,7 @@ const CollectionsPage = () => {
   } = useFetchCollections();
 
   const [inputProduct, setInputProduct] = useState("");
+  const [selectedCollectionId, setSelectedCollectionId] = useState("");
 
   const handleAddOrEditCollection = () => {
     if (inputProduct.trim() === "") return;
@@ -26,17 +27,61 @@ const CollectionsPage = () => {
       addCollection(inputProduct);
     }
     setInputProduct("");
+    setSelectedCollectionId(""); // reset radio button
   };
 
   return (
     <>
       <h1>Collections Page</h1>
-      <table>
+      <button disabled={collectionsIsLoading} onClick={fetchCollections}>
+        Fetch
+      </button>
+      <br />
+      <table
+        style={{
+          width: "100%",
+          textAlign: "center",
+          borderCollapse: "collapse",
+        }}
+      >
         <thead>
           <tr>
             <td>ID</td>
             <td>Product</td>
             <td>Action</td>
+            <td>Select Edit</td>
+          </tr>
+          {/* Baris input untuk Add/Edit */}
+          <tr>
+            <td colSpan={2}>
+              <input
+                type="text"
+                placeholder="Collection name"
+                value={inputProduct}
+                onChange={(e) => setInputProduct(e.target.value)}
+                style={{ width: "80%" }}
+              />
+            </td>
+            <td colSpan={2}>
+              <button
+                onClick={handleAddOrEditCollection}
+                disabled={collectionsIsLoading}
+              >
+                {editProduct ? "Update" : "Add"}
+              </button>
+              {editProduct && (
+                <button
+                  onClick={() => {
+                    setEditProduct(null);
+                    setInputProduct("");
+                    setSelectedCollectionId("");
+                  }}
+                  style={{ marginLeft: "8px" }}
+                >
+                  Cancel Edit
+                </button>
+              )}
+            </td>
           </tr>
         </thead>
         <tbody>
@@ -57,50 +102,34 @@ const CollectionsPage = () => {
                   >
                     Delete
                   </button>
-                  <button
+                  {/* <button
                     onClick={() => {
                       setEditProduct(collection);
                       setInputProduct(collection.product);
                     }}
                   >
                     Edit
-                  </button>
+                  </button> */}
+                </td>
+                <td>
+                  <input
+                    value={collection.id}
+                    checked={selectedCollectionId === collection.id.toString()}
+                    onChange={() => {
+                      setSelectedCollectionId(collection.id.toString());
+                      setEditProduct(collection);
+                      setInputProduct(collection.product);
+                    }}
+                    type="radio"
+                    name="collection-id"
+                  />
                 </td>
               </tr>
             );
           })}
         </tbody>
       </table>
-      <button disabled={collectionsIsLoading} onClick={fetchCollections}>
-        Fetch
-      </button>
-      <br />
 
-      <input
-        type="text"
-        placeholder="Collection name"
-        value={inputProduct}
-        onChange={(e) => setInputProduct(e.target.value)}
-      />
-
-      <button
-        onClick={handleAddOrEditCollection}
-        disabled={collectionsIsLoading}
-      >
-        {editProduct ? "Update" : "Add"}
-      </button>
-
-      {/* Tombol cancel edit ini akan tampil ketika tombol add dalam kondisi untuk edit */}
-      {editProduct && (
-        <button
-          onClick={() => {
-            setEditProduct(null);
-            setInputProduct(""); // reset input jika batal edit
-          }}
-        >
-          Cancel Edit
-        </button>
-      )}
       {collectionsIsLoading && <p>Loading...</p>}
       {collectionsError && <p style={{ color: "red" }}>{collectionsError}</p>}
     </>
