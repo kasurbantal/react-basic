@@ -26,7 +26,7 @@ const CollectionsPage = () => {
 
   // Fungsi handle untuk menambahkan atau mengedit koleksi
   const handleAddOrEditCollection = () => {
-    if (inputProduct.trim() === "") return; // validasi agar tidak input kosong
+    if (inputProduct.trim() === "" || inputFactory.trim() === "") return; // validasi agar tidak input kosong
 
     if (editProduct && editFactory) {
       // Mode edit
