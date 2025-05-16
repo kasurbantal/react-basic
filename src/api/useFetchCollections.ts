@@ -83,15 +83,12 @@ export const useFetchCollections = () => {
           factory: newFactory,
         }
       );
-      // Update data produk dan factory secara terpisah
+      // Update data produk dan factory yang tergabung
       setCollections((prev) =>
         prev.map((item) =>
-          item.id === id ? { ...item, product: res.data.product } : item
-        )
-      );
-      setCollections((prev) =>
-        prev.map((item) =>
-          item.id === id ? { ...item, factory: res.data.factory } : item
+          item.id === id
+            ? { ...item, product: res.data.product, factory: res.data.factory }
+            : item
         )
       );
       setEditProduct(null); // reset mode edit
